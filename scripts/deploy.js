@@ -19,7 +19,7 @@ async function main() {
 
   await upgradableNFTContract.deployed();
 
-  console.log("Greeter deployed to:", upgradableNFTContract.address);
+  console.log("contract deployed to:", upgradableNFTContract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -32,7 +32,7 @@ module.exports = {
     //   accounts: [process.env.PRIVATE_KEY]
     // },
     mumbai:{
-      url: 'https://polygon-mumbai.g.alchemy.com/v2/6ocCLwJCMpxiamVdF-WlX_X_nkL2zQqj',
+      url: process.env.ALCHEMY_API_URL,
       accounts: [`0x${PRIVATE_KEY}`]
     },
  

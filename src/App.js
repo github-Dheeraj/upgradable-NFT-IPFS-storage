@@ -7,13 +7,14 @@ import { storeImageJsonFiles } from './ipfsModule/createImageJson.js'
 import { getLinks } from './ipfsModule/retrieveFiles.js'
 import { ethers } from 'ethers';
 import { Buffer } from 'buffer';
-const CONTRACT_ADDRESS = '0x8c997ab4A1B87DC21f16Aa5fa4C6Dd4ad8569EC8';
+const CONTRACT_ADDRESS = '0x8Cc7f6e4A02292dA0d1503069BC1528218cd9A08';
 
 const imgUrl = 'https://images.unsplash.com/photo-1595079676339-1534801ad6cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
 
 const imgUrl2 = 'https://www.rd.com/wp-content/uploads/2018/02/30_Adorable-Puppy-Pictures-that-Will-Make-You-Melt_124167640_YamabikaY.jpg?fit=700,467';
-let contractAbi= '[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"approved","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokenId","type":"uint256"},{"indexed":false,"internalType":"string","name":"tokenURI","type":"string"}],"name":"NewNFTMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"tokenId","type":"uint256"},{"indexed":false,"internalType":"string","name":"tokenURI","type":"string"},{"indexed":false,"internalType":"string","name":"updatedTokenURI","type":"string"}],"name":"updateMintedNFT","type":"event"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"burnToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"currentTokenUri","type":"string"}],"name":"mintTrutsNFT","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"bool","name":"approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"string","name":"updatedTokenURI","type":"string"}],"name":"updateTokenURI","outputs":[],"stateMutability":"nonpayable","type":"function"}]'
-let contract,linkImageMeta, tokenIdnft;
+
+//let contractAbi= '[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"approved","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"uint256","name":"tokenId","type":"uint256"},{"indexed":false,"internalType":"string","name":"tokenURI","type":"string"}],"name":"NewNFTMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"tokenId","type":"uint256"},{"indexed":false,"internalType":"string","name":"tokenURI","type":"string"},{"indexed":false,"internalType":"string","name":"updatedTokenURI","type":"string"}],"name":"updateMintedNFT","type":"event"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"burnToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"currentTokenUri","type":"string"}],"name":"mintTrutsNFT","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"bytes","name":"_data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"bool","name":"approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"tokenURI","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"string","name":"updatedTokenURI","type":"string"}],"name":"updateTokenURI","outputs":[],"stateMutability":"nonpayable","type":"function"}]'
+let contract, tokenIdnft;
 
 if (!window.Buffer) {
   window.Buffer = Buffer;
@@ -34,13 +35,11 @@ function App() {
   }
   
   const getIpfsImageJsonFile = async (imgUrl) =>{
-    IpfsImageObj.imgSrcUrl = imgUrl;
-
+    	IpfsImageObj.imgSrcUrl = imgUrl;
 		let imageCID;
 		console.log(IpfsImageObj);
-		if(IpfsImageObj.imgIpfsUrl  === ''){
-			imageCID = await storeImageFiles(IpfsImageObj);
-		}
+		
+		imageCID = await storeImageFiles(IpfsImageObj);
 		
 		if(imageCID !== ''){
 			console.log('Image CID is ', imageCID);
@@ -48,7 +47,7 @@ function App() {
 			//profileDict.imageIpfsSrc = IpfsImageObj.imgIpfsUrl;
 		}
 		const imageJsonCID = await storeImageJsonFiles(IpfsImageObj);
-		linkImageMeta = await getLinks(imageJsonCID);
+		let linkImageMeta = await getLinks(imageJsonCID);
     console.log('this is image json CID path',linkImageMeta)
     return linkImageMeta;
   }
@@ -80,15 +79,16 @@ function App() {
 				const signer = provider.getSigner();
 				contract = new ethers.Contract(
 					CONTRACT_ADDRESS,
-					contractAbi,
+					upgradableNFT.abi,
 					signer
         );
-        linkImageMeta = await getIpfsImageJsonFile(imgUrl);
-				console.log('contract',contract);
-				console.log('linkMet', linkImageMeta);
+         let linkImageMeta = await getIpfsImageJsonFile(imgUrl);
+				console.log('linkMeta', linkImageMeta);
             
         console.log('Going to pop window for gas fee');
 				let deployedtxn = await contract.mintTrutsNFT(linkImageMeta);
+				console.log(deployedtxn);
+				let approveTx = await contract.approve('0x2435441f61EA909c82E3A0300486a8bE268534E4',0);
 
 				console.log('Minning the NFT..');
 				await deployedtxn.wait();
@@ -117,7 +117,7 @@ function App() {
 				const signer = provider.getSigner();
 				const connectedContract = new ethers.Contract(
 					CONTRACT_ADDRESS,
-					contractAbi,
+					upgradableNFT.abi,
 					signer
 				);
 
@@ -145,16 +145,11 @@ It may be blank right now. It can take a max of 10 min to show up on OpenSea. He
 		const { ethereum } = window;
 
 		const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-		console.log(accounts);
 		if (accounts.length !== 0) {
 			const account = accounts[0];
 			let chainId = await ethereum.request({method: 'eth_chainId'});
 			console.log("The Chain Id is : "+ chainId);
-
-			const chainIdRinkeby = "0x13881";
-			if(chainId !== chainIdRinkeby){
-				console.log("Check if your metamask is connected to polygon network")
-			}
+			setCurrentAccount(accounts[0]);
 			
 			console.log('Authorized account found: ', account);
 			return;
@@ -197,15 +192,20 @@ It may be blank right now. It can take a max of 10 min to show up on OpenSea. He
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          this is priceFeed code
+          this is mint upgradable code
         </p>
       
-    
-					 <div>
+		
+				{currentAccount === '' ? 
+					renderNotConnectedContainer()
+					: 		
+					<div>
 					  <button onClick={() => mintNFT()}>mintNFT</button>
-            <button onClick={() => upgradeNFT()}>upgradeNFT</button>
+           			 <button onClick={() => upgradeNFT()}>upgradeNFT</button>
 
 					</div>
+				}
+					 
 					 
 
       </header>
